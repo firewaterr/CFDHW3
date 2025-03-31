@@ -10,11 +10,11 @@ clc;
 
 % Parameters
 L = 3; % Length of the domain
-N = 300; % Number of grid points
+N = 600; % Number of grid points
 x = linspace(0, L, N); % Grid points
 u = sin(2 * pi * x); % Initial condition
-dt = 0.01; % Time step
-T = 1; % Total time
+dt = 0.001; % Time step
+T = 10; % Total time
 t = 0:dt:T; % Time vector
 M = length(t); % Number of time steps
 % Initialize the solution matrix
@@ -31,8 +31,8 @@ for i =  1:N
         A(i, N) = -1 * lamda / 2;
         A(i, i+1) = 1 * lamda / 2;
     elseif i == N
-        A(i, 1) = -1 * lamda / 2;
-        A(i, i-1) = 1 * lamda / 2;
+        A(i, 1) = 1 * lamda / 2;
+        A(i, i-1) = -1 * lamda / 2;
     else
         A(i, i-1) = -1/2 * lamda;
         A(i, i+1) = 1/2 * lamda;
