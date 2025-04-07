@@ -13,9 +13,9 @@ clc;
 L = 3; % Length of the domain
 N = [50,100,200]; % Number of grid points
 T = 3; % Total time
-dt = 0.01; % Time step size
-t = 0:dt:T; % Time vector
-M = length(t); % Number of time steps
+M = 50; % Time step size
+t = linspace(0,T,M); % Time vector
+dt = T / M; % Number of time steps
 a = 1; 
 Schemetitle = ["LaxScheme", "UpwindScheme", "ImplicitScheme"]; % Scheme titles
 for cyclenum = 1:length(N)
