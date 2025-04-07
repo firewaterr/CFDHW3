@@ -1,4 +1,4 @@
-% Lax Scheme                        %
+% homework3.1                       %
 % \partial_t u + \partial_x u = 0   %   
 % u(x,0) = sin(2 * pi *x)           %
 % 0 <= x <= 3                       %
@@ -11,9 +11,9 @@ clc;
 
 %% Parameters
 L = 3; % Length of the domain
-N = [100,300,600]; % Number of grid points
-T = 1; % Total time
-dt = 0.01; % Time step
+N = [50,100,200]; % Number of grid points
+T = 3; % Total time
+dt = 0.01; % Time step size
 t = 0:dt:T; % Time vector
 M = length(t); % Number of time steps
 a = 1; 
@@ -42,55 +42,5 @@ for cyclenum = 1:length(N)
         colorbar; % Colorbar
         colormap(jet); % Colormap
         clim([-1 1]); % Color limits
-    end
-end
-
-%% Lax Scheme function
-function U = LaxScheme(N, M, c, u)
-    U = zeros(N, M); % Initialize the solution matrix
-    U(:, 1) = u; % Set the initial condition
-    for m = 1:M-1
-        for n = 2:N-1
-            U(n, m+1) = 0.5 * (1-c) * U(n+1,m) + 0.5 * (1+c) * U(n-1,m);
-        end
-        % Apply periodic boundary conditions
-        U(1, m+1) = 0.5 * (1-c) * U(2,m) + 0.5 * (1+c) * U(N-1,m);
-        U(N, m+1) = U(1, m+1);
-    end
-end
-%% Upwind Scheme function
-function U = UpwindScheme(N, M, c, u)
-    U = zeros(N, M); % Initialize the solution matrix
-    U(:, 1) = u; % Set the initial condition
-    for m = 1:M-1
-        for n = 2:N-1
-            U(n, m+1) = U(n, m) - c * (U(n, m) - U(n-1, m));
-        end
-        % Apply periodic boundary conditions
-        U(1, m+1) = U(1, m) - c * (U(1, m) - U(N-1, m));
-        U(N, m+1) = U(1, m+1);
-    end
-end
-%% Implicit Scheme function
-function U = ImplicitScheme(N, M, c, u)
-    U = zeros(N, M); % Initialize the solution matrix
-    U(:, 1) = u; % Set the initial condition
-    A = zeros(N, N); % Implicit scheme matrix initialization
-    for i =  1:N
-        A(i, i) = 1;
-        if i == 1
-            A(i, N) = -1 * c / 2;
-            A(i, i+1) = 1 * c / 2;
-        elseif i == N % symmetric boundary condition
-            A(i, 1) = 1 * c / 2;
-            A(i, i-1) = -1 * c / 2;
-        else          % symmetric boundary condition
-            A(i, i-1) = -1/2 * c;
-            A(i, i+1) = 1/2 * c;
-        end
-    end
-    for m = 1:M-1
-        b = U(:, m);
-        U(:, m+1) = A \ b;
     end
 end
