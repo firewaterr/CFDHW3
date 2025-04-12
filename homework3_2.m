@@ -2,7 +2,7 @@
 % \partial_t u + \partial_x u = 0   %   
 % u(x,0) = sin(2 * pi *x)           %
 % 0 <= x <= 3                       %
-% symeetric boundary conditions     %
+% symmetric boundary conditions     %
 % u(0,t) = u(3,t)                   %
 
 clear all; 
