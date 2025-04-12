@@ -11,9 +11,9 @@ clc;
 
 %% Parameters
 L = 3; % Length of the domain
-N = [50,100,200]; % Number of grid points
+N = [1000,100,200]; % Number of grid points
 T = 3; % Total time
-M = 50; % Time step size
+M = 1000; % Time step size
 t = linspace(0,T,M); % Time vector
 dt = T / M; % Number of time steps
 a = 1; 
